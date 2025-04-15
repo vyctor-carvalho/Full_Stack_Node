@@ -1,0 +1,45 @@
+.formBotao {
+    display: flex;
+    justify-content: center;  
+}
+  
+.ant-form-item-label > label {
+    color: #e0d7ff !important;
+}
+  
+.ant-input,
+.ant-input-password,
+.ant-input-affix-wrapper {
+    background-color: #2c2c3f;
+    border-color: #4b4b6b;
+    color: #0b0718;
+}
+  
+.ant-input::placeholder {
+    color: #aaa2cc;
+}
+  
+.ant-input:focus,
+.ant-input-focused {
+    border-color: #8a7fff;
+    box-shadow: 0 0 0 2px rgba(138, 127, 255, 0.2);
+}
+  
+.ant-btn-primary {
+    background-color: #7a5fff;
+    border-color: #6a4fff;
+    color: white;
+}
+  
+.ant-btn-primary:hover {
+    background-color: #8b6fff;
+    border-color: #7a5fff;
+}
+  
+.form-dark {
+    background-color: #24243e;
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+}

@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "3300:3300"
+    working_dir: /app
+    command: npm run start
+    restart: always
+    volumes:
+      - ./back-end/database:/app/database
+
+  ant-front:
+    build:
+      context: ./ant-front
+      dockerfile: Dockerfile
+    container_name: ant-front
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:3300
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
