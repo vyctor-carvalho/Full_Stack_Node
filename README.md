@@ -22,6 +22,14 @@ Este projeto foi desenvolvido como parte de um **teste técnico para uma vaga de
 
 ---
 
+### Clone o projeto
+
+```bash
+git clone https://github.com/vyctor-carvalho/Full_Stack_Node.git
+```
+
+---
+
 ## Rodando com Docker
 
 > ⚠️ Como os dois front-ends utilizam a mesma porta (3000), execute apenas **um por vez**.
@@ -30,14 +38,6 @@ Este projeto foi desenvolvido como parte de um **teste técnico para uma vaga de
 
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
-
----
-
-### Clone o projeto
-
-```bash
-git clone https://github.com/vyctor-carvalho/Full_Stack_Node.git
-```
 
 ---
 
