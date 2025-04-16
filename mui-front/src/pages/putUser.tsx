@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
-import { ServiceUsuario } from '../service/usuarioService';
-import { Usuario } from '../modelos/Usuario';
+import { ServiceUser } from '../service/ServiceUser';
+import { User } from '../models/User';
 
-const PostUsuarios = () => {
-    const [formData, setFormData] = useState<Usuario>({
+const PostUser = () => {
+    const [formData, setFormData] = useState<User>({
         id: '',
-        nome: '',
+        name: '',
         email: '',
-        senha: ''
+        password: ''
     });
 
     const [errors, setErrors] = useState({
@@ -22,19 +22,17 @@ const PostUsuarios = () => {
         const id = e.target.value.trim();
         if (!id) return;        
         try {
-            const usuario = await ServiceUsuario.buscarPorId(id);
-            console.log('Resposta da API:', usuario);
-            if (usuario) {
-                setTimeout(() => {
-                    setFormData({
-                        id: usuario.id,
-                        nome: usuario.nome,
-                        email: usuario.email,
-                        senha: usuario.senha
-                    });
-                }, 100);
-                console.log('Usuário carregado com sucesso');
-                console.log(usuario);
+            const user = await ServiceUser.findById(id);
+            //console.log('Resposta da API:', user);
+            if (user) {
+                setFormData({
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    password: user.password
+                });
+                //console.log('Usuário carregado com sucesso');
+                //console.log(user);
             } else {
                 alert("Usuário não encontrado");
             }
@@ -44,7 +42,7 @@ const PostUsuarios = () => {
         }
 }
 
-    const pegarDados = (data: React.ChangeEvent<HTMLInputElement>) => {
+    const getData = (data: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = data.target;
 
         setFormData(prev => ({
@@ -58,12 +56,12 @@ const PostUsuarios = () => {
         }));
     };
 
-    const validar = () => {
+    const validate = () => {
         const newErrors = {
             id: formData.id.trim() === '',
-            nome: formData.nome.trim() === '',
+            nome: formData.name.trim() === '',
             email: !/\S+@\S+\.\S+/.test(formData.email),
-            senha: formData.senha.trim() === ''
+            senha: formData.password.trim() === ''
         };
 
         setErrors(newErrors);
@@ -72,9 +70,10 @@ const PostUsuarios = () => {
 
     const enviarDados = (data: React.FormEvent) => {
         data.preventDefault();
-        if (validar()) {
-        console.log('Dados enviados:', formData);
-        ServiceUsuario.atualizarUsuario(formData);
+        if (validate()) {
+            console.log('Dados enviados:', formData);
+            ServiceUser.updateUser(formData);
+            alert("Usuário modificado")
         }
     };
 
@@ -87,7 +86,7 @@ const PostUsuarios = () => {
                 label="ID"
                 name="id"
                 value={formData.id}
-                onChange={pegarDados}
+                onChange={getData}
                 error={errors.id}
                 helperText={errors.id ? 'id é obrigatório' : ''}
                 fullWidth
@@ -99,9 +98,9 @@ const PostUsuarios = () => {
 
             <TextField
                 label="Nome"
-                name="nome"
-                value={formData.nome}
-                onChange={pegarDados}
+                name="name"
+                value={formData.name}
+                onChange={getData}
                 error={errors.nome}
                 helperText={errors.nome ? 'Nome é obrigatório' : ''}
                 fullWidth
@@ -115,9 +114,9 @@ const PostUsuarios = () => {
                 name="email"
                 type="email"
                 value={formData.email}
-                onChange={pegarDados}
+                onChange={getData}
                 error={errors.email}
-                helperText={errors.email ? 'E-mail inválido' : ''}
+                helperText={errors.email ? 'E-mail é inválido' : ''}
                 fullWidth
                 margin="normal"
                 InputLabelProps={{ style: { color: '#e0d7ff' } }}
@@ -126,10 +125,10 @@ const PostUsuarios = () => {
 
             <TextField
                 label="Senha"
-                name="senha"
+                name="password"
                 type="password"
-                value={formData.senha}
-                onChange={pegarDados}
+                value={formData.password}
+                onChange={getData}
                 error={errors.senha}
                 helperText={errors.senha ? 'Senha é obrigatória' : ''}
                 fullWidth
@@ -138,7 +137,7 @@ const PostUsuarios = () => {
                 InputProps={{ style: { color: '#e0d7ff' } }}
             />
 
-            <Box className="formBotao" mt={3}>
+            <Box className="formBotao" mt={3} sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <Button type="submit" variant="contained" color="primary">
                 Atualizar
                 </Button>
@@ -147,7 +146,7 @@ const PostUsuarios = () => {
     );
 };
 
-export default PostUsuarios;
+export default PostUser;
 
 const estiloForm: React.CSSProperties = {
     maxWidth: 550,

@@ -1,5 +1,5 @@
 import express from 'express';
-import usuarioRoutes from './routes/usuarioRoutes';
+import UsersRoutes from './routes/UsersRoutes';
 import cors from 'cors'
 
 const app = express();
@@ -14,6 +14,6 @@ app.use(cors({
 */
 
 app.use(express.json());
-app.use('/usuarios', usuarioRoutes);
+app.use('/usuarios', UsersRoutes);
 
 export default app;

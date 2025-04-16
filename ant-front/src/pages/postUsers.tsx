@@ -1,20 +1,21 @@
-import '../estilizacao/estiloForm.css'
-import { ServiceUsuario } from '../service/usuarioService'
+import '../estilizaton/formStyle.css'
+import { ServiceUser } from '../service/ServiceUser'
 import { Input, Button, Form } from 'antd';
 
 
 
-const postUsuarios = () => {
+const PostUser = () => {
     const emviarDados = (values: any) => {
-        console.log('Dados enviados:', values);
-        ServiceUsuario.colocarUsuario(values);
+        //console.log('Dados enviados:', values);
+        ServiceUser.postUser(values);
+        alert("Usuário cadastrado")
     };
 
 
 
     return (  
         <Form layout="vertical" onFinish={emviarDados} style={estiloForm}>
-            <Form.Item name="nome" label="Nome" rules={[{ required: true }]}>
+            <Form.Item name="name" label="Nome" rules={[{ required: true }]}>
                 <Input placeholder="Digite o nome" autoFocus/>
             </Form.Item>
     
@@ -22,18 +23,18 @@ const postUsuarios = () => {
                 <Input placeholder="Digite o e-mail" />
             </Form.Item>
     
-            <Form.Item name="senha" label="Senha" rules={[{ required: true }]}>
+            <Form.Item name="password" label="Senha" rules={[{ required: true }]}>
                 <Input.Password placeholder="Digite a senha" />
             </Form.Item>
     
-            <Form.Item className='formBotao'>
-                <Button type="primary" htmlType="submit">Atializar</Button>
+            <Form.Item className='buttonForm'>
+                <Button type="primary" htmlType="submit">Cadastrar</Button>
             </Form.Item>
         </Form>
     )    
 }
 
-export default postUsuarios;
+export default PostUser;
 
 
 

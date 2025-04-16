@@ -1,33 +1,34 @@
-import '../estilizacao/estiloForm.css'
-import { Usuario } from '../modelos/Usuario';
-import { ServiceUsuario } from '../service/usuarioService'
+import '../estilizaton/formStyle.css'
+import { User } from '../models/User';
+import { ServiceUser } from '../service/ServiceUser'
 import { Input, Button, Form } from 'antd';
 
-const DelUsuarios = () => {
+const DeleteUser = () => {
 
-    const deletarUsuario = (values: Usuario) => {
+    const deleteUserForm = (values: User) => {
         console.log(`Dados deletados ${values}`);
-        ServiceUsuario.deletarUsuario(values.id);
+        ServiceUser.deleteUser(values.id);
+        alert("Usuário deletado")
     } 
 
     return (
-        <Form layout="vertical" onFinish={deletarUsuario} style={estiloForm}>
+        <Form layout="vertical" onFinish={deleteUserForm} style={formStyle}>
             <Form.Item name="id" label="ID" rules={[{ required: true }]}>
                 <Input placeholder="Digite o id"  />
             </Form.Item>
 
-            <Form.Item className='formBotao'>
+            <Form.Item className='buttonForm'>
                 <Button type="primary" htmlType="submit">Deletar</Button>
             </Form.Item>
         </Form>
     )
 } 
 
-export default DelUsuarios;
+export default DeleteUser;
 
 
 
-const estiloForm: React.CSSProperties = { 
+const formStyle: React.CSSProperties = { 
     maxWidth: 550, 
     margin: '2rem auto', 
     padding: '2rem', 

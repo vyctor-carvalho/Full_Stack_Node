@@ -11,8 +11,6 @@ services:
     working_dir: /app
     command: npm run start
     restart: always
-    volumes:
-      - ./back-end/database:/app/database
 
   ant-front:
     build:

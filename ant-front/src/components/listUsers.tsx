@@ -1,27 +1,27 @@
-import '../estilizacao/loading.css'
-import '../estilizacao/lista.css'
+import '../estilizaton/loading.css'
+import '../estilizaton/list.css'
 import React, {useState, useEffect} from 'react';
 import { Flex, Button } from 'antd';
-import { Usuario } from '../modelos/Usuario';
-import { ServiceUsuario } from '../service/usuarioService'
+import { User } from '../models/User';
+import { ServiceUser } from '../service/ServiceUser'
 import { useNavigate} from 'react-router-dom'
   
 
 const Lista: React.FC = () => {
     const [ value ] = useState<string>('vertical');
-    const [ usuarios, setUsuarios] =  useState<Usuario[]>([]);
+    const [ user, setUser] =  useState<User[]>([]);
     const [ loading, setLoadind ] = useState(true);
     const navgate = useNavigate();
 
 
     useEffect(() => {
-        carregandoDados();
+        loadingData();
     }, [])
 
-    const carregandoDados = async () => {
+    const loadingData = async () => {
         try {
-            const dados = await ServiceUsuario.buscarUsuarios();
-            setUsuarios(dados);
+            const dados = await ServiceUser.findAllUsers();
+            setUser(dados);
         } catch (error) {
             console.error(error);
         } finally {
@@ -42,13 +42,13 @@ const Lista: React.FC = () => {
     return (
         <>
             <Flex gap="middle" vertical>
-                <Flex vertical={value === 'vertical'} className="usuarios-lista">
-                {usuarios.map((usuario, i) => (
+                <Flex vertical={value === 'vertical'} className="users-list">
+                {user.map((usuario, i) => (
                     <>
-                        <li key={i} className={`usuario-item ${i % 2 === 0 ? 'par' : 'impar'}`}>
-                            <strong className="usuario-nome">{usuario.nome}</strong><br />
-                            <small className="usuario-email">{usuario.email}</small><br />
-                            <p className="usuario-email">id: {usuario.id}</p>
+                        <li key={i} className={`user-item ${i % 2 === 0 ? 'even' : 'odd'}`}>
+                            <strong className="user-name">{usuario.name}</strong><br />
+                            <small className="user-p">{usuario.email}</small><br />
+                            <p className="user-p">id: {usuario.id}</p>
                             <Button style={{backgroundColor: 'green', margin: '5px'}} onClick={() => navgate('/atualizar')} >Atualizar</Button>
                             <Button style={{backgroundColor: 'red', margin: '5px'}} onClick={() => navgate('/delete')} >Deletar</Button>
                         </li>
